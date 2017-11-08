@@ -14,4 +14,6 @@ public interface ItemService {
     List<TbItem> getItemList();
 
     Result<TbItemCustom> listItemsByPage(Page page); //分页
+
+    int updateBatch(List<Long> ids, String status); //批量修改状态
 }
