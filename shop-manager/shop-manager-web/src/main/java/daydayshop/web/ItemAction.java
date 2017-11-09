@@ -1,5 +1,6 @@
 package daydayshop.web;
 
+import daydayshop.common.dto.Order;
 import daydayshop.common.dto.Page;
 import daydayshop.common.dto.Result;
 import daydayshop.pojo.po.TbItem;
@@ -33,11 +34,11 @@ public class ItemAction {
 
     @RequestMapping(value = "/items")
     @ResponseBody
-    public Result<TbItemCustom> listItemsByPage(Page page) {
+    public Result<TbItemCustom> listItemsByPage(Page page, Order order) {
 
         Result<TbItemCustom> list = null;
         try {
-            list = itemService.listItemsByPage(page);
+            list = itemService.listItemsByPage(page, order);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             e.printStackTrace();

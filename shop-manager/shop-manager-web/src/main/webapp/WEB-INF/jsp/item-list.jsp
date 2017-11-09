@@ -125,11 +125,11 @@
         toolbar: toolbar, //将工具栏添加到数据表格
         columns: [[
             {field: "ck", checkbox: true}, //添加复选按钮
-            {field: "id", title: "商品编号", width: 100},
-            {field: "title", title: "商品名称", width: 200},
+            {field: "id", title: "商品编号", width: 100, sortable: true},
+            {field: "title", title: "商品名称", width: 200, sortable: true},
             {field: "sellPoint", title: "商品买点", width: 200},
             {field: "catName", title: "商品分类", width: 100},
-            {field: "price", title: "商品价格", width: 100, align: "right"},
+            {field: "priceFormat", title: "商品价格", width: 100, align: "right"},
             {field: "status", title: "商品状态", width: 100, formatter: function (value, row, index) {
                 //value:该条记录的status值
                 //row:该条记录对象
@@ -148,6 +148,12 @@
                         return "未知";
                         break;
                 }
+            }},
+            {field: "created", title: "创建时间", width: 100, formatter: function (value, row, index) {
+                return moment(value).format("LL");
+            }},
+            {field: "updated", title: "修改时间", width: 100, formatter: function (value, row, index) {
+                return moment(value).format("LL");
             }}
         ]]
     });

@@ -3,7 +3,7 @@
 <mapper namespace="daydayshop.dao.TbItemCustomMapper">
 
     <sql id="Base_Column_List">
-        item.id, item.title, item.sell_point as sellPoint, item.price,
+        item.id, item.title, item.sell_point as sellPoint, format(item.price/100,2) as priceFormat,
         item.num, item.barcode, item.image, item.cid, item.status, item.created, item.updated,
         cat.name as catName
     </sql>
@@ -12,14 +12,26 @@
         select count(1) from tb_item where status != 3
     </select>
 
-    <select id="listItemsByPage" resultType="daydayshop.pojo.vo.TbItemCustom" parameterType="daydayshop.common.dto.Page">
+    <select id="listItemsByPage" resultType="daydayshop.pojo.vo.TbItemCustom">
         select <include refid="Base_Column_List"></include>
         from tb_item item
         left join tb_item_cat cat
         on item.cid = cat.id
         where item.status != 3
-        order by item.id desc
-        limit #{offset},#{rows}
+        <choose>
+            <when test="order != null and order.sort != null and order.order != null">
+                <if test="order.sort == 'title'">
+                    order by convert(item.${order.sort} using gbk) ${order.order}
+                </if>
+                <if test="order.sort == 'id'">
+                    order by item.${order.sort} ${order.order}
+                </if>
+            </when>
+            <otherwise>
+                order by item.id desc
+            </otherwise>
+        </choose>
+        limit #{page.offset},#{page.rows}
     </select>
 
 </mapper>

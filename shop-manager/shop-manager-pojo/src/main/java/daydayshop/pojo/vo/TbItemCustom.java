@@ -6,6 +6,7 @@ import daydayshop.pojo.po.TbItem;
 public class TbItemCustom extends TbItem {
 
     private String catName;
+    private String priceFormat;
 
     public String getCatName() {
         return catName;
@@ -13,5 +14,13 @@ public class TbItemCustom extends TbItem {
 
     public void setCatName(String catName) {
         this.catName = catName;
+    }
+
+    public String getPriceFormat() {
+        return priceFormat;
+    }
+
+    public void setPriceFormat(String priceFormat) {
+        this.priceFormat = priceFormat;
     }
 }

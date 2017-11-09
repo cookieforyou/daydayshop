@@ -1,5 +1,6 @@
 package daydayshop.service;
 
+import daydayshop.common.dto.Order;
 import daydayshop.common.dto.Page;
 import daydayshop.common.dto.Result;
 import daydayshop.pojo.po.TbItem;
@@ -13,7 +14,7 @@ public interface ItemService {
 
     List<TbItem> getItemList();
 
-    Result<TbItemCustom> listItemsByPage(Page page); //分页
+    Result<TbItemCustom> listItemsByPage(Page page, Order order); //分页
 
     int updateBatch(List<Long> ids, String status); //批量修改状态
 }

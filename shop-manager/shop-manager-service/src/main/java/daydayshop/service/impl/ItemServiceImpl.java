@@ -1,5 +1,6 @@
 package daydayshop.service.impl;
 
+import daydayshop.common.dto.Order;
 import daydayshop.common.dto.Page;
 import daydayshop.common.dto.Result;
 import daydayshop.dao.TbItemCustomMapper;
@@ -81,7 +82,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Result<TbItemCustom> listItemsByPage(Page page) {
+    public Result<TbItemCustom> listItemsByPage(Page page, Order order) {
 
         Result<TbItemCustom> result = null;
         try {
@@ -91,7 +92,7 @@ public class ItemServiceImpl implements ItemService {
             int total = custom.countItems();
             result.setTotal(total);
             //对rows进行设值(符合条件的记录集合)
-            List<TbItemCustom> list = custom.listItemsByPage(page);
+            List<TbItemCustom> list = custom.listItemsByPage(page, order);
             result.setRows(list);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
