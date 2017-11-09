@@ -8,13 +8,16 @@ import daydayshop.dao.TbItemMapper;
 import daydayshop.pojo.po.TbItem;
 import daydayshop.pojo.po.TbItemExample;
 import daydayshop.pojo.vo.TbItemCustom;
+import daydayshop.pojo.vo.TbItemQuery;
 import daydayshop.service.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -82,17 +85,22 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Result<TbItemCustom> listItemsByPage(Page page, Order order) {
+    public Result<TbItemCustom> listItemsByPage(Page page, Order order, TbItemQuery tbItemQuery) {
 
         Result<TbItemCustom> result = null;
         try {
+            //创建Map存储形参,解决多参数传递问题
+            Map<String, Object> map = new HashMap<>();
+            map.put("page", page);
+            map.put("order", order);
+            map.put("tbItemQuery", tbItemQuery);
             //创建一个响应参数实体类
             result = new Result<TbItemCustom>();
             //对total进行设值(符合条件的总记录数)
             int total = custom.countItems();
             result.setTotal(total);
             //对rows进行设值(符合条件的记录集合)
-            List<TbItemCustom> list = custom.listItemsByPage(page, order);
+            List<TbItemCustom> list = custom.listItemsByPage(map);
             result.setRows(list);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

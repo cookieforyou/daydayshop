@@ -5,6 +5,7 @@ import daydayshop.common.dto.Page;
 import daydayshop.common.dto.Result;
 import daydayshop.pojo.po.TbItem;
 import daydayshop.pojo.vo.TbItemCustom;
+import daydayshop.pojo.vo.TbItemQuery;
 import daydayshop.service.ItemService;
 
 import org.slf4j.Logger;
@@ -34,11 +35,11 @@ public class ItemAction {
 
     @RequestMapping(value = "/items")
     @ResponseBody
-    public Result<TbItemCustom> listItemsByPage(Page page, Order order) {
+    public Result<TbItemCustom> listItemsByPage(Page page, Order order, TbItemQuery tbItemQuery) {
 
         Result<TbItemCustom> list = null;
         try {
-            list = itemService.listItemsByPage(page, order);
+            list = itemService.listItemsByPage(page, order, tbItemQuery);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             e.printStackTrace();

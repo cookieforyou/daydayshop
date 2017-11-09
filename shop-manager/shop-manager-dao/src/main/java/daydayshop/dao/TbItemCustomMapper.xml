@@ -8,16 +8,28 @@
         cat.name as catName
     </sql>
 
+    <sql id="Where_Clause">
+        <where>
+            item.status != 3
+            <if test="tbItemQuery != null and tbItemQuery.title != null and tbItemQuery.title != ''">
+                and item.title like '%${tbItemQuery.title}%'
+            </if>
+            <if test="tbItemQuery != null and tbItemQuery.status != null and tbItemQuery.status != 0">
+                and item.status = #{tbItemQuery.status}
+            </if>
+        </where>
+    </sql>
+
     <select id="countItems" resultType="_int">
         select count(1) from tb_item where status != 3
     </select>
 
-    <select id="listItemsByPage" resultType="daydayshop.pojo.vo.TbItemCustom">
+    <select id="listItemsByPage" resultType="daydayshop.pojo.vo.TbItemCustom" parameterType="map">
         select <include refid="Base_Column_List"></include>
         from tb_item item
         left join tb_item_cat cat
         on item.cid = cat.id
-        where item.status != 3
+        <include refid="Where_Clause"></include>
         <choose>
             <when test="order != null and order.sort != null and order.order != null">
                 <if test="order.sort == 'title'">
