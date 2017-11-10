@@ -20,8 +20,9 @@
         </where>
     </sql>
 
-    <select id="countItems" resultType="_int">
-        select count(1) from tb_item where status != 3
+    <select id="countItems" resultType="_int" parameterType="map">
+        select count(1) from tb_item item
+        <include refid="Where_Clause"></include>
     </select>
 
     <select id="listItemsByPage" resultType="daydayshop.pojo.vo.TbItemCustom" parameterType="map">

@@ -97,7 +97,7 @@ public class ItemServiceImpl implements ItemService {
             //创建一个响应参数实体类
             result = new Result<TbItemCustom>();
             //对total进行设值(符合条件的总记录数)
-            int total = custom.countItems();
+            int total = custom.countItems(map);
             result.setTotal(total);
             //对rows进行设值(符合条件的记录集合)
             List<TbItemCustom> list = custom.listItemsByPage(map);
