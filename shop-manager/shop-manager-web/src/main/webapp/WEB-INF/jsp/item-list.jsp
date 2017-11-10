@@ -28,7 +28,7 @@
 <script>
 
     function add() {
-        alert("add");
+        ddshop.addTab("新增商品", "item-add");
     }
     function edit() {
         alert("edit");
