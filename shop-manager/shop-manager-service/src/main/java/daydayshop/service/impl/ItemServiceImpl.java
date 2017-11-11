@@ -1,11 +1,14 @@
 package daydayshop.service.impl;
 
+import daydayshop.common.dto.IDUtils;
 import daydayshop.common.dto.Order;
 import daydayshop.common.dto.Page;
 import daydayshop.common.dto.Result;
 import daydayshop.dao.TbItemCustomMapper;
+import daydayshop.dao.TbItemDescMapper;
 import daydayshop.dao.TbItemMapper;
 import daydayshop.pojo.po.TbItem;
+import daydayshop.pojo.po.TbItemDesc;
 import daydayshop.pojo.po.TbItemExample;
 import daydayshop.pojo.vo.TbItemCustom;
 import daydayshop.pojo.vo.TbItemQuery;
@@ -14,7 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +32,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private TbItemCustomMapper custom;
+
+    @Autowired
+    private TbItemDescMapper tbItemDescMapper;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -64,16 +72,33 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional
+    public int saveItem(TbItem tbItem, String desc) {
+        long itemId = IDUtils.getItemId();
+        tbItem.setId(itemId);
+        tbItem.setStatus((byte) 1);
+        tbItem.setCreated(new Date());
+        tbItem.setUpdated(new Date());
+        int count = mapper.insert(tbItem);
+
+        TbItemDesc tbItemDesc = new TbItemDesc();
+        tbItemDesc.setItemId(itemId);
+        tbItemDesc.setItemDesc(desc);
+        tbItemDesc.setCreated(new Date());
+        tbItemDesc.setUpdated(new Date());
+        count += tbItemDescMapper.insert(tbItemDesc);
+
+        return count;
+    }
+
+    @Override
     public TbItem getItemById(Long itemId) {
-
         TbItem tbItem = mapper.selectByPrimaryKey(itemId);
-
         return tbItem;
     }
 
     @Override
     public List<TbItem> getItemList() {
-
         List<TbItem> list = null;
         try {
             list = mapper.selectByExample(null);
@@ -86,7 +111,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Result<TbItemCustom> listItemsByPage(Page page, Order order, TbItemQuery tbItemQuery) {
-
         Result<TbItemCustom> result = null;
         try {
             //创建Map存储形参,解决多参数传递问题

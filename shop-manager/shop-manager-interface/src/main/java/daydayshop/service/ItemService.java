@@ -18,4 +18,6 @@ public interface ItemService {
     Result<TbItemCustom> listItemsByPage(Page page, Order order, TbItemQuery tbItemQuery); //分页
 
     int updateBatch(List<Long> ids, String status); //批量修改状态
+
+    int saveItem(TbItem tbItem, String desc);
 }

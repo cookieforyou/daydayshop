@@ -59,4 +59,10 @@ public class ItemAction {
         }
         return i;
     }
+
+    @RequestMapping("/saveItem")
+    @ResponseBody
+    public int saveItem(TbItem tbItem, String desc){
+        return itemService.saveItem(tbItem, desc);
+    }
 }

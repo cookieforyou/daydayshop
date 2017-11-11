@@ -48,18 +48,16 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <!-- 加载编辑器的容器 -->
+                    <!-- 加载富文本编辑器的容器 -->
                     <script id="container" name="content" type="text/plain">商品描述</script>
                 </td>
             </tr>
-
             <tr class="paramsShow" style="display:none;">
                 <td class="label">商品规格：</td>
                 <td>
 
                 </td>
             </tr>
-
             <tr>
                 <td colspan="2">
                     <button onclick="submitForm()" class="easyui-linkbutton" type="button"
@@ -76,6 +74,11 @@
 </div>
 
 <script>
+    //实例化富文本编辑器
+    var ue = UE.getEditor('container',{
+        initialFrameWidth: '100%',
+        initialFrameHeight: '400'
+    });
     //加载商品类目的树形下拉框
     $("#cid").combotree({
         url: "itemCats?parentId=0",
@@ -98,5 +101,29 @@
             }
         }
     });
+    function submitForm() {
+        $("#itemAddForm").form("submit", {
+            //提交表单动作的URL地址
+            url: "saveItem",
+            //在提交之前触发,返回false终止提交
+            onSubmit: function () {
+                //给隐藏域设置ID属性,并且设值
+                $("#price").val($("#priceView").val() * 100);
+                return $(this).form("validate");
+            },
+            //在表单成功提交后触发
+            success: function (data) {
+                //console.log(data); data为ItemAction的saveItem方法执行保存商品成功后返回的受影响的行数
+                if (data > 0) {
+                    $.messager.alert("消息", "保存成功", "info");
+                    ddshop.addTab("查询商品", "item-list");
+                }
+            }
+        });
+    }
+    function clearForm() {
+        $("#itemAddForm").form("reset");
+        ue.setContent("商品描述");
+    }
 
 </script>
