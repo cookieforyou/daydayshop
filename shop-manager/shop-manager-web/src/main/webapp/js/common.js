@@ -23,6 +23,16 @@ var ddshop = {
                 closable: true
             });
         }
+    },
+    //新增商品保存成功关闭新增商品选项卡
+    saveItemSuccessTab: function () {
+        if ($("#tab").tabs("exists", "查询商品")) {
+            $("#tab").tabs("close", "查询商品");
+        }
+        if ($("#tab").tabs("exists", "新增商品")) {
+            $("#tab").tabs("close", "新增商品");
+            this.addTab("查询商品", "item-list");
+        }
     }
 
 };

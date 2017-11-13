@@ -58,7 +58,7 @@
     moment.locale("zh-cn");
 </script>
 
-<!-- 引入百度富文本编辑器 -->
+<!-- 引入百度富文本编辑器ueditor -->
 <!-- 配置文件 -->
 <script src="js/ueditor/ueditor.config.js"></script>
 <!-- 编辑器源码文件 -->
@@ -68,9 +68,7 @@
 <script src="js/common.js"></script>
 <!-- 自定义js -->
 <script>
-
     ddshop.registerMenuEvent();
-
 </script>
 </body>
 </html>

@@ -49,7 +49,7 @@
             <tr>
                 <td colspan="2">
                     <!-- 加载富文本编辑器的容器 -->
-                    <script id="container" name="content" type="text/plain">商品描述</script>
+                    <script id="container" name="desc" type="text/plain">商品描述</script>
                 </td>
             </tr>
             <tr class="paramsShow" style="display:none;">
@@ -74,6 +74,8 @@
 </div>
 
 <script>
+    //实例化富文本编辑器之前先删除上一次实例化的
+    UE.delEditor("container");
     //实例化富文本编辑器
     var ue = UE.getEditor('container',{
         initialFrameWidth: '100%',
@@ -116,7 +118,7 @@
                 //console.log(data); data为ItemAction的saveItem方法执行保存商品成功后返回的受影响的行数
                 if (data > 0) {
                     $.messager.alert("消息", "保存成功", "info");
-                    ddshop.addTab("查询商品", "item-list");
+                    ddshop.saveItemSuccessTab();
                 }
             }
         });
