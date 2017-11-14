@@ -19,5 +19,5 @@ public interface ItemService {
 
     int updateBatch(List<Long> ids, String status); //批量修改状态
 
-    int saveItem(TbItem tbItem, String desc);
+    int saveItem(TbItem tbItem, String desc, String paramData);
 }

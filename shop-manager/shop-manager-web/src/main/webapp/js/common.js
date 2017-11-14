@@ -33,6 +33,16 @@ var ddshop = {
             $("#tab").tabs("close", "新增商品");
             this.addTab("查询商品", "item-list");
         }
+    },
+    //新增商品规格保存成功关闭新增商品规格选项卡
+    saveItemParamSuccessTab: function () {
+        if ($("#tab").tabs("exists", "规格参数")) {
+            $("#tab").tabs("close", "规格参数");
+        }
+        if ($("#tab").tabs("exists", "新增商品规格模板")) {
+            $("#tab").tabs("close", "新增商品规格模板");
+            this.addTab("规格参数", "item-param-list");
+        }
     }
 
 };

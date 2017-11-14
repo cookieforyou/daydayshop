@@ -7,9 +7,11 @@ import daydayshop.common.dto.Result;
 import daydayshop.dao.TbItemCustomMapper;
 import daydayshop.dao.TbItemDescMapper;
 import daydayshop.dao.TbItemMapper;
+import daydayshop.dao.TbItemParamItemMapper;
 import daydayshop.pojo.po.TbItem;
 import daydayshop.pojo.po.TbItemDesc;
 import daydayshop.pojo.po.TbItemExample;
+import daydayshop.pojo.po.TbItemParamItem;
 import daydayshop.pojo.vo.TbItemCustom;
 import daydayshop.pojo.vo.TbItemQuery;
 import daydayshop.service.ItemService;
@@ -35,6 +37,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private TbItemDescMapper tbItemDescMapper;
+
+    @Autowired
+    private TbItemParamItemMapper tbItemParamItemMapper;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -73,7 +78,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional
-    public int saveItem(TbItem tbItem, String desc) {
+    public int saveItem(TbItem tbItem, String desc, String paramData) {
         long itemId = IDUtils.getItemId();
         tbItem.setId(itemId);
         tbItem.setStatus((byte) 1);
@@ -87,6 +92,13 @@ public class ItemServiceImpl implements ItemService {
         tbItemDesc.setCreated(new Date());
         tbItemDesc.setUpdated(new Date());
         count += tbItemDescMapper.insert(tbItemDesc);
+
+        TbItemParamItem tbItemParamItem = new TbItemParamItem();
+        tbItemParamItem.setItemId(itemId);
+        tbItemParamItem.setParamData(paramData);
+        tbItemParamItem.setCreated(new Date());
+        tbItemParamItem.setUpdated(new Date());
+        count += tbItemParamItemMapper.insert(tbItemParamItem);
 
         return count;
     }

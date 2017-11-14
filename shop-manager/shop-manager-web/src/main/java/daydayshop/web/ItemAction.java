@@ -62,7 +62,7 @@ public class ItemAction {
 
     @RequestMapping("/saveItem")
     @ResponseBody
-    public int saveItem(TbItem tbItem, String desc){
-        return itemService.saveItem(tbItem, desc);
+    public int saveItem(TbItem tbItem, String desc, String paramData){
+        return itemService.saveItem(tbItem, desc, paramData);
     }
 }
