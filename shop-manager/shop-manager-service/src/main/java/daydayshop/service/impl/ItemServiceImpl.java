@@ -1,6 +1,6 @@
 package daydayshop.service.impl;
 
-import daydayshop.common.dto.IDUtils;
+import daydayshop.common.util.IDUtils;
 import daydayshop.common.dto.Order;
 import daydayshop.common.dto.Page;
 import daydayshop.common.dto.Result;

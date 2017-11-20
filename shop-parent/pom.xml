@@ -12,6 +12,7 @@
     <modules>
         <module>../shop-common</module>
         <module>../shop-manager</module>
+        <module>../shop-upload</module>
     </modules>
 
     <!--打包方式，默认为jar-->

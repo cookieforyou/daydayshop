@@ -79,7 +79,8 @@
     //实例化富文本编辑器
     var ue = UE.getEditor('container',{
         initialFrameWidth: '100%',
-        initialFrameHeight: '400'
+        initialFrameHeight: '400',
+        serverUrl: 'file/upload'
     });
     //加载商品类目的树形下拉框
     $("#cid").combotree({

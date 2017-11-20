@@ -44,31 +44,37 @@
         <div title="欢迎页面" style="padding:20px;">千锋欢迎你</div>
     </div>
 </div>
-
 <!-- jquery -->
 <script src="js/jquery-easyui-1.5/jquery.min.js"></script>
-
 <!-- jquery easyui -->
 <script src="js/jquery-easyui-1.5/jquery.easyui.min.js"></script>
 <script src="js/jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
-
 <!-- 引入日期格式处理js -->
 <script src="js/moment/moment-with-locales.js"></script>
 <script>
     moment.locale("zh-cn");
 </script>
-
 <!-- 引入百度富文本编辑器ueditor -->
 <!-- 配置文件 -->
 <script src="js/ueditor/ueditor.config.js"></script>
 <!-- 编辑器源码文件 -->
 <script src="js/ueditor/ueditor.all.js"></script>
-
 <!-- 自定义脚本 -->
 <script src="js/common.js"></script>
 <!-- 自定义js -->
 <script>
     ddshop.registerMenuEvent();
+</script>
+<!-- 解决多图上传出现“http请求错误”——405错误 -->
+<script>
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+    UE.Editor.prototype.getActionUrl = function(action) {
+        if (action == 'uploadimage') {
+            return 'http://localhost:8080/daydayshop/file/upload';
+        }else {
+            return this._bkGetActionUrl.call(this, action);
+        }
+    }
 </script>
 </body>
 </html>

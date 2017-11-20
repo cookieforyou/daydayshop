@@ -12,6 +12,7 @@
         <module name="shop-manager-pojo" />
         <module name="shop-manager-service" />
         <module name="shop-manager-web" />
+        <module name="shop-upload" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -23,6 +24,7 @@
       <module name="shop-manager-service" target="1.8" />
       <module name="shop-manager-web" target="1.8" />
       <module name="shop-parent" target="1.8" />
+      <module name="shop-upload" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
